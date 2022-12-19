@@ -13,6 +13,7 @@ export default {
     <div id="container">
         <!-- Risultati per film -->
         <div v-for="film in store.filmList">
+            <img :src="'https://image.tmdb.org/t/p/w342' + film.poster_path" alt="NO POSTER FOUND">
             <p>Titolo del film: {{ film.title }}</p>
             <p>Titolo originale: {{ film.original_title }}</p>
             <p>
@@ -23,6 +24,7 @@ export default {
         </div>
         <!-- Risultati per serie tv -->
         <div v-for="series in store.seriesList">
+            <img :src="'https://image.tmdb.org/t/p/w342' + series.poster_path" alt="NO POSTER FOUND">
             <p>Titolo della serie: {{ series.name }}</p>
             <p>Titolo originale: {{ series.original_name }}</p>
             <p>
@@ -43,6 +45,10 @@ export default {
 
     &>* {
         width: 225px;
+
+        img {
+            max-width: 100%;
+        }
     }
 }
 </style>
