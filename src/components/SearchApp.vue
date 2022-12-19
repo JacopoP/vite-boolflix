@@ -1,9 +1,9 @@
 <script>
 import { store } from '../store'
-// import selectLang from './LanguageApp.vue'
+// import SelectLang from './LanguageApp.vue'
 export default {
     components: {
-        // selectLang,
+        // SelectLang,
     },
     data() {
         return {
@@ -23,7 +23,7 @@ export default {
     <div id="container">
         <input type="text" placeholder="What are you looking for?" v-model="store.searchText"
             @keyup.enter="$emit('searchStart')">
-        <!-- <selectLang /> -->
+        <!-- <SelectLang /> -->
         <input type="submit" @click.prevent="$emit('searchStart')">
     </div>
 </template>
