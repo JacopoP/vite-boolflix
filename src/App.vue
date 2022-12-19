@@ -18,18 +18,22 @@ export default {
       let myURL = store.apiURL;
       if (store.searchText != '') {
         let titleSearch = store.searchText;
+        myURL += '&query=' + titleSearch;
+        if (store.searchLanguage != '') {
+          console.log(myURL);
+          myURL += '&language=' + store.searchLanguage;
+        }
         // sostituire gli spazi con + per la ricerca nell'API
         let aux = true;
         while (aux) {
-          if (titleSearch.includes(' ')) {
-            titleSearch = titleSearch.replace(' ', '+')
+          if (myURL.includes(' ')) {
+            myURL = myURL.replace(' ', '+')
           }
           else {
             aux = false;
           }
         }
-
-        myURL += titleSearch;
+        console.log(myURL);
         axios
           .get(myURL)
           .then(res => {
@@ -50,5 +54,5 @@ export default {
 </template>
 
 <style lang="scss">
-
+@use './style/mainStyle.scss';
 </style>
