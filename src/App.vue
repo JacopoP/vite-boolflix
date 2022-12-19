@@ -2,9 +2,11 @@
 import { store } from './store';
 import axios from 'axios';
 import SearchBar from './components/SearchApp.vue'
+import ResultsShow from './components/ResultContainer.vue'
 export default {
   components: {
     SearchBar,
+    ResultsShow,
   },
   data() {
     return {
@@ -31,8 +33,7 @@ export default {
         axios
           .get(myURL)
           .then(res => {
-            this.store.filmList = res.results;
-            console.log(store.searchText);
+            store.filmList = res.data.results;
           })
           .catch(err => {
             console.log('Errori: ', err);
@@ -40,14 +41,12 @@ export default {
       }
     }
   },
-  mounted() {
-    this.getFromApi();
-  }
 }
 </script>
 
 <template>
   <SearchBar @searchStart="getFromApi" />
+  <ResultsShow />
 </template>
 
 <style lang="scss">
