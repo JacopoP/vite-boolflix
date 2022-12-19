@@ -1,7 +1,11 @@
 <script>
 import { store } from './store';
 import axios from 'axios';
+import SearchBar from './components/SearchApp.vue'
 export default {
+  components: {
+    SearchBar,
+  },
   data() {
     return {
       store,
@@ -28,7 +32,7 @@ export default {
           .get(myURL)
           .then(res => {
             this.store.filmList = res.results;
-            console.log('ok');
+            console.log(store.searchText);
           })
           .catch(err => {
             console.log('Errori: ', err);
@@ -43,7 +47,7 @@ export default {
 </script>
 
 <template>
-
+  <SearchBar @searchStart="getFromApi" />
 </template>
 
 <style lang="scss">
