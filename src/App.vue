@@ -15,31 +15,43 @@ export default {
   },
   methods: {
     getFromApi: function () {
-      let myURL = store.apiURL;
+      let myURLMovie = store.apiURLMovie;
+      let myURLSeries = store.apiURLSeries;
       if (store.searchText != '') {
         let titleSearch = store.searchText;
-        myURL += '&query=' + titleSearch;
+        myURLMovie += '&query=' + titleSearch;
+        myURLSeries += '&query=' + titleSearch;
         if (store.searchLanguage != '') {
-          myURL += '&language=' + store.searchLanguage;
+          myURLMovie += '&language=' + store.searchLanguage;
+          myURLSeries += '&language=' + store.searchLanguage;
         }
         // sostituire gli spazi con + per la ricerca nell'API
         let aux = true;
         while (aux) {
-          if (myURL.includes(' ')) {
-            myURL = myURL.replace(' ', '+')
+          if (myURLMovie.includes(' ')) {
+            myURLMovie = myURLMovie.replace(' ', '+');
+            myURLSeries = myURLSeries.replace(' ', '+');
           }
           else {
             aux = false;
           }
         }
         axios
-          .get(myURL)
+          .get(myURLMovie)
           .then(res => {
             store.filmList = res.data.results;
           })
           .catch(err => {
             console.log('Errori: ', err);
+          });
+        axios
+          .get(myURLSeries)
+          .then(res => {
+            store.seriesList = res.data.results;
           })
+          .catch(err => {
+            console.log('Errori: ', err);
+          });
       }
     }
   },
