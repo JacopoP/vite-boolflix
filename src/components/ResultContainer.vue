@@ -1,6 +1,10 @@
 <script>
 import { store } from '../store'
+import Stars from './VoteApp.vue'
 export default {
+    components: {
+        Stars,
+    },
     data() {
         return {
             store,
@@ -20,7 +24,7 @@ export default {
                 Lingua originale: {{ film.original_language }}
                 <span :class="film.original_language == 'en' ? 'fi fi-us' : 'fi fi-' + film.original_language"></span>
             </p>
-            <p>Voto: {{ film.vote_average }} su {{ film.vote_count }} valutazioni</p>
+            <Stars :vote="film.vote_average" />
         </div>
         <!-- Risultati per serie tv -->
         <div v-for="series in store.seriesList">
@@ -32,7 +36,7 @@ export default {
                 <span
                     :class="series.original_language == 'en' ? 'fi fi-us' : 'fi fi-' + series.original_language"></span>
             </p>
-            <p>Voto: {{ series.vote_average }} su {{ series.vote_count }} valutazioni</p>
+            <Stars :vote="series.vote_average" />
         </div>
     </div>
 </template>
