@@ -20,7 +20,6 @@ export default {
         let titleSearch = store.searchText;
         myURL += '&query=' + titleSearch;
         if (store.searchLanguage != '') {
-          console.log(myURL);
           myURL += '&language=' + store.searchLanguage;
         }
         // sostituire gli spazi con + per la ricerca nell'API
@@ -33,7 +32,6 @@ export default {
             aux = false;
           }
         }
-        console.log(myURL);
         axios
           .get(myURL)
           .then(res => {

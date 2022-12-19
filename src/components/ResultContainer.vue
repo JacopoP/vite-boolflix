@@ -14,7 +14,10 @@ export default {
         <div v-for="film in store.filmList">
             <p>Titolo del film: {{ film.title }}</p>
             <p>Titolo originale: {{ film.original_title }}</p>
-            <p>Lingua originale: {{ film.original_language }}</p>
+            <p>
+                Lingua originale: {{ film.original_language }}
+                <span :class="film.original_language == 'en' ? 'fi fi-us' : 'fi fi-' + film.original_language"></span>
+            </p>
             <p>Voto: {{ film.vote_average }} su {{ film.vote_count }} valutazioni</p>
         </div>
     </div>
@@ -26,7 +29,7 @@ export default {
     gap: 15px;
     flex-wrap: wrap;
 
-    * {
+    &>* {
         width: 225px;
     }
 }
