@@ -23,7 +23,7 @@ export default {
     <div id="container">
         <input type="text" placeholder="Search" v-model="store.searchText" @keyup.enter="$emit('searchStart')">
         <!-- <SelectLang /> -->
-        <input type="submit" @click.prevent="$emit('searchStart')">
+        <button @click.prevent="$emit('searchStart')"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
     </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
     display: flex;
     gap: 20px;
     margin: 30px;
-    align-items: flex-start;
+    align-items: center;
 
     input[type='text'] {
         background: transparent;
@@ -41,6 +41,19 @@ export default {
         border-radius: 25px;
         padding: 3px 10px;
         width: 300px;
+    }
+
+    button {
+        cursor: pointer;
+        background: #000;
+        border: none;
+        padding: 5px;
+        color: #c5c5c5;
+        font-size: 1.3rem;
+
+        &:hover {
+            color: #fff;
+        }
     }
 }
 </style>
