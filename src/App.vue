@@ -60,9 +60,21 @@ export default {
 
 <template>
   <Header @searchStart="getFromApi" />
-  <ResultsShow />
+  <main>
+    <ResultsShow />
+  </main>
 </template>
 
 <style lang="scss">
 @use './style/mainStyle.scss';
+
+header {
+  height: 100px;
+}
+
+main {
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding-bottom: 15px;
+}
 </style>
