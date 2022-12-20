@@ -15,9 +15,11 @@ export default {
   },
   methods: {
     getFromApi: function () {
-      let myURLMovie = store.apiURLMovie;
-      let myURLSeries = store.apiURLSeries;
+      let myURLMovie;
+      let myURLSeries;
       if (store.searchText != '') {
+        myURLMovie = store.apiSearchMovie;
+        myURLSeries = store.apiSearchSeries;
         let titleSearch = store.searchText;
         myURLMovie += '&query=' + titleSearch;
         myURLSeries += '&query=' + titleSearch;
@@ -36,25 +38,32 @@ export default {
             aux = false;
           }
         }
-        axios
-          .get(myURLMovie)
-          .then(res => {
-            store.filmList = res.data.results;
-          })
-          .catch(err => {
-            console.log('Errori: ', err);
-          });
-        axios
-          .get(myURLSeries)
-          .then(res => {
-            store.seriesList = res.data.results;
-          })
-          .catch(err => {
-            console.log('Errori: ', err);
-          });
       }
+      else {
+        myURLMovie = store.apiTrendingMovie;
+        myURLSeries = store.apiTrendingSeries;
+      }
+      axios
+        .get(myURLMovie)
+        .then(res => {
+          store.filmList = res.data.results;
+        })
+        .catch(err => {
+          console.log('Errori: ', err);
+        });
+      axios
+        .get(myURLSeries)
+        .then(res => {
+          store.seriesList = res.data.results;
+        })
+        .catch(err => {
+          console.log('Errori: ', err);
+        });
     }
   },
+  mounted() {
+    this.getFromApi();
+  }
 }
 </script>
 
