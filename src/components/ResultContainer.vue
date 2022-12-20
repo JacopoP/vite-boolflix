@@ -34,6 +34,7 @@ export default {
                 @click="copyIdM(film.id); $emit('showcastM');" />
         </div>
         <div v-else class="not-found">No result</div>
+        <h3 v-if="store.movieGenres.length != 0" v-for="genre in store.movieGenres">{{ genre.name }}&nbsp;</h3>
         <div class="container" v-if="store.actorMovieList.length != 0">
             <ActorCard v-for="(actor, index) in store.actorMovieList" :name="actor.name" :character="actor.character"
                 :poster="actor.profile_path" :index="index" :key="index" />
@@ -48,6 +49,7 @@ export default {
                 @click="copyIdS(series.id); $emit('showcastS')" />
         </div>
         <div v-else class="not-found">No result</div>
+        <h3 v-if="store.seriesGenres.length != 0" v-for="genre in store.seriesGenres">{{ genre.name }}&nbsp;</h3>
         <div class="container" v-if="store.actorSeriesList.length != 0">
             <ActorCard v-for="(actor, index) in store.actorSeriesList" :name="actor.name" :character="actor.character"
                 :poster="actor.profile_path" :index="index" :key="index" />
@@ -61,6 +63,12 @@ h2 {
     font-size: 1.7rem;
     margin-top: 20px;
     margin-left: 20px;
+}
+
+h3 {
+    color: #fff;
+    display: inline-block;
+    margin: 15px 0px 15px 20px;
 }
 
 .not-found {

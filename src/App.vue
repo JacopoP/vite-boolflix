@@ -19,6 +19,10 @@ export default {
     getFromApi: function () {
       let myURLMovie;
       let myURLSeries;
+      store.movieGenres = [];
+      store.seriesGenres = [];
+      store.actorMovieList = [];
+      store.actorSeriesList = [];
       if (store.searchText != '') {
         myURLMovie = store.apiCall + store.apiSearchMovie;
         myURLSeries = store.apiCall + store.apiSearchSeries;
@@ -66,28 +70,46 @@ export default {
     },
     getActorsM: function () {
       if (store.movieId != '') {
-        const myURL = store.apiCall + 'movie/' + store.movieId + store.apiActors;
+        const myURLAc = store.apiCall + 'movie/' + store.movieId + store.apiActors;
+        const myURLGen = store.apiCall + 'movie/' + store.movieId + store.apiKey;
         axios
-          .get(myURL)
+          .get(myURLAc)
           .then(res => {
             store.actorMovieList = res.data.cast;
           })
           .catch(() => {
             console.log('cast not found');
+          });
+        axios
+          .get(myURLGen)
+          .then(res => {
+            store.movieGenres = res.data.genres;
           })
+          .catch(() => {
+            console.log('genre not found');
+          });
       }
     },
     getActorsS: function () {
       if (store.seriesId != '') {
-        const myURL = store.apiCall + 'tv/' + store.seriesId + store.apiActors;
+        const myURLAc = store.apiCall + 'tv/' + store.seriesId + store.apiActors;
+        const myURLGen = store.apiCall + 'tv/' + store.seriesId + store.apiKey;
         axios
-          .get(myURL)
+          .get(myURLAc)
           .then(res => {
             store.actorSeriesList = res.data.cast;
           })
           .catch(() => {
             console.log('cast not found');
+          });
+        axios
+          .get(myURLGen)
+          .then(res => {
+            store.seriesGenres = res.data.genres;
           })
+          .catch(() => {
+            console.log('genre not found');
+          });
       }
     }
   },
