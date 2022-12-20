@@ -4,7 +4,7 @@ export default {
     components: {
         Stars,
     },
-    props: ['title', 'originalTitle', 'vote', 'overview', 'poster'],
+    props: ['title', 'originalTitle', 'vote', 'overview', 'poster', 'language'],
     data() {
         return {
             imgsLink: 'https://image.tmdb.org/t/p/w342',
@@ -19,6 +19,12 @@ export default {
         <div class="film-info">
             <b>Title:</b> {{ title }}<br>
             <span v-if="title != originalTitle"><b>Original title:</b> {{ originalTitle }}<br></span>
+            <b>Lingua originale:</b> {{ language }}
+            <span class="fi fi-us" v-if="language == 'en'"></span>
+            <span class="fi fi-jp" v-else-if="language == 'ja'"></span>
+            <span class="fi fi-cn" v-else-if="language == 'zh'"></span>
+            <span :class="'fi fi-' + language" v-else></span>
+            <br>
             <b>Voto:</b>&nbsp;
             <Stars :vote="vote" />
             <p><b>Overview:</b> {{ overview }}</p>
@@ -36,6 +42,8 @@ export default {
         object-position: center;
         height: 342px;
         width: 100%;
+        color: #fff;
+        font-size: 4rem;
     }
 
     .film-info {

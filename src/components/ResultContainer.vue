@@ -19,14 +19,14 @@ export default {
         <!-- Risultati per film -->
         <Card v-for="(film, index) in store.filmList" :key="index" :title="film.title"
             :originalTitle="film.original_title" :vote="film.vote_average" :overview="film.overview"
-            :poster="film.poster_path" />
+            :language="film.original_language" :poster="film.poster_path" />
     </div>
     <h2>SERIES</h2>
     <div class="container">
         <!-- Risultati per serie tv -->
         <Card v-for="(series, index) in store.seriesList" :key="index" :title="series.name"
             :originalTitle="series.original_name" :vote="series.vote_average" :overview="series.overview"
-            :poster="series.poster_path" />
+            :language="series.original_language" :poster="series.poster_path" />
     </div>
 </template>
 
