@@ -14,5 +14,7 @@
 </template>
 
 <style lang="scss" scoped>
-
+* {
+    color: yellow;
+}
 </style>
