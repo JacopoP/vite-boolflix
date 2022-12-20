@@ -9,7 +9,7 @@ export default {
         return {
             imgsLink: 'https://image.tmdb.org/t/p/w342',
         }
-    }
+    },
 }
 </script>
 
