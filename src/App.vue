@@ -1,11 +1,11 @@
 <script>
 import { store } from './store';
 import axios from 'axios';
-import SearchBar from './components/SearchApp.vue'
+import Header from './components/HeaderApp.vue'
 import ResultsShow from './components/ResultContainer.vue'
 export default {
   components: {
-    SearchBar,
+    Header,
     ResultsShow,
   },
   data() {
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <template>
-  <SearchBar @searchStart="getFromApi" />
+  <Header @searchStart="getFromApi" />
   <ResultsShow />
 </template>
 

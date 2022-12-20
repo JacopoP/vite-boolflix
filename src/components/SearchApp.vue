@@ -21,8 +21,7 @@ export default {
 
 <template>
     <div id="container">
-        <input type="text" placeholder="What are you looking for?" v-model="store.searchText"
-            @keyup.enter="$emit('searchStart')">
+        <input type="text" placeholder="Search" v-model="store.searchText" @keyup.enter="$emit('searchStart')">
         <!-- <SelectLang /> -->
         <input type="submit" @click.prevent="$emit('searchStart')">
     </div>
@@ -34,5 +33,14 @@ export default {
     gap: 20px;
     margin: 30px;
     align-items: flex-start;
+
+    input[type='text'] {
+        background: transparent;
+        color: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 25px;
+        padding: 3px 10px;
+        width: 300px;
+    }
 }
 </style>
