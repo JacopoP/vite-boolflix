@@ -11,6 +11,8 @@ export default {
   data() {
     return {
       store,
+      loadingF: false,
+      loadingS: false,
     }
   },
   methods: {
@@ -47,6 +49,7 @@ export default {
         .get(myURLMovie)
         .then(res => {
           store.filmList = res.data.results;
+          this.loadingF = true;
         })
         .catch(err => {
           console.log('Errori: ', err);
@@ -55,6 +58,7 @@ export default {
         .get(myURLSeries)
         .then(res => {
           store.seriesList = res.data.results;
+          this.loadingS = true;
         })
         .catch(err => {
           console.log('Errori: ', err);
@@ -69,7 +73,7 @@ export default {
 
 <template>
   <Header @searchStart="getFromApi" />
-  <main>
+  <main v-if="loadingF && loadingS">
     <ResultsShow />
   </main>
 </template>
