@@ -20,8 +20,8 @@ export default {
       let myURLMovie;
       let myURLSeries;
       if (store.searchText != '') {
-        myURLMovie = store.apiSearchMovie;
-        myURLSeries = store.apiSearchSeries;
+        myURLMovie = store.apiCall + store.apiSearchMovie;
+        myURLSeries = store.apiCall + store.apiSearchSeries;
         let titleSearch = store.searchText;
         myURLMovie += '&query=' + titleSearch;
         myURLSeries += '&query=' + titleSearch;
@@ -42,8 +42,8 @@ export default {
         }
       }
       else {
-        myURLMovie = store.apiTrendingMovie;
-        myURLSeries = store.apiTrendingSeries;
+        myURLMovie = store.apiCall + store.apiTrendingMovie;
+        myURLSeries = store.apiCall + store.apiTrendingSeries;
       }
       axios
         .get(myURLMovie)
@@ -63,6 +63,32 @@ export default {
         .catch(err => {
           console.log('Errori: ', err);
         });
+    },
+    getActorsM: function () {
+      if (store.movieId != '') {
+        const myURL = store.apiCall + 'movie/' + store.movieId + store.apiActors;
+        axios
+          .get(myURL)
+          .then(res => {
+            store.actorMovieList = res.data.cast;
+          })
+          .catch(() => {
+            console.log('cast not found');
+          })
+      }
+    },
+    getActorsS: function () {
+      if (store.seriesId != '') {
+        const myURL = store.apiCall + 'tv/' + store.seriesId + store.apiActors;
+        axios
+          .get(myURL)
+          .then(res => {
+            store.actorSeriesList = res.data.cast;
+          })
+          .catch(() => {
+            console.log('cast not found');
+          })
+      }
     }
   },
   mounted() {
@@ -74,7 +100,7 @@ export default {
 <template>
   <Header @searchStart="getFromApi" />
   <main v-if="loadingF && loadingS">
-    <ResultsShow />
+    <ResultsShow @showcastM="getActorsM" @showcastS="getActorsS" />
   </main>
 </template>
 

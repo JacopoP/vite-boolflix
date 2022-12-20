@@ -1,35 +1,58 @@
 <script>
 import { store } from '../store'
 import Card from './PreviewCard.vue'
+import ActorCard from './ActorCard.vue'
 export default {
     components: {
         Card,
+        ActorCard,
     },
     data() {
         return {
             store,
         }
-    }
+    },
+    methods: {
+        copyIdM: function (id) {
+            store.movieId = id;
+        },
+        copyIdS: function (id) {
+            store.seriesId = id;
+        }
+    },
 }
 </script>
 
 <template>
-    <h2>FILM</h2>
-    <div class="container" v-if="store.filmList.length != 0">
-        <!-- Risultati per film -->
-        <Card v-for="(film, index) in store.filmList" :key="index" :title="film.title"
-            :originalTitle="film.original_title" :vote="film.vote_average" :overview="film.overview"
-            :language="film.original_language" :poster="film.poster_path" />
+    <div>
+        <h2>FILM</h2>
+        <div class="container" v-if="store.filmList.length != 0">
+            <!-- Risultati per film -->
+            <Card v-for="(film, index) in store.filmList" :key="index" :title="film.title"
+                :originalTitle="film.original_title" :vote="film.vote_average" :overview="film.overview"
+                :language="film.original_language" :poster="film.poster_path"
+                @click="copyIdM(film.id); $emit('showcastM');" />
+        </div>
+        <div v-else class="not-found">No result</div>
+        <div class="container" v-if="store.actorMovieList.length != 0">
+            <ActorCard v-for="(actor, index) in store.actorMovieList" :name="actor.name" :character="actor.character"
+                :poster="actor.profile_path" :index="index" :key="index" />
+        </div>
+
+        <h2>SERIES</h2>
+        <div class="container" v-if="store.seriesList.length != 0">
+            <!-- Risultati per serie tv -->
+            <Card v-for="(series, index) in store.seriesList" :key="index" :title="series.name"
+                :originalTitle="series.original_name" :vote="series.vote_average" :overview="series.overview"
+                :language="series.original_language" :poster="series.poster_path"
+                @click="copyIdS(series.id); $emit('showcastS')" />
+        </div>
+        <div v-else class="not-found">No result</div>
+        <div class="container" v-if="store.actorSeriesList.length != 0">
+            <ActorCard v-for="(actor, index) in store.actorSeriesList" :name="actor.name" :character="actor.character"
+                :poster="actor.profile_path" :index="index" :key="index" />
+        </div>
     </div>
-    <div v-else class="not-found">No result</div>
-    <h2>SERIES</h2>
-    <div class="container" v-if="store.seriesList.length != 0">
-        <!-- Risultati per serie tv -->
-        <Card v-for="(series, index) in store.seriesList" :key="index" :title="series.name"
-            :originalTitle="series.original_name" :vote="series.vote_average" :overview="series.overview"
-            :language="series.original_language" :poster="series.poster_path" />
-    </div>
-    <div v-else class="not-found">No result</div>
 </template>
 
 <style lang="scss" scoped>
@@ -54,7 +77,7 @@ h2 {
     padding: 20px 10px;
     align-items: flex-start;
 
-    &>* {
+    &>*.card {
         width: calc(100% / 6 - 15px);
         height: 342px;
         flex-shrink: 0;
